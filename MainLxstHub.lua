@@ -3,7 +3,8 @@ local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 local games = {
     ["ClickingSimulator"] = 7560156054,
     ["DaHood"] = 2788229376,
-    ["TappingSimulator"] = 9498006165
+    ["TappingSimulator"] = 9498006165,
+    ["SteveOnePiece"] = 2116452049
 }
 
 for k,v in next, games do 
