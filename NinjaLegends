@@ -1,0 +1,134 @@
+kVars = {}
+
+kVars.plr = game.Players.LocalPlayer
+
+local UILibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local MainUI = UILibrary.CreateLib("| Lxst Hub | " .. game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name , Sentinel)
+
+local pageMain = MainUI:NewTab("Main")
+local sectionFarm = pageMain:NewSection("Farm")
+
+local pageMisc = MainUI:NewTab("Miscellaneous")
+local sectionMisc = pageMain:NewSection("Misc")
+
+local pageTeleport = MainUI:NewTab("Teleport")
+local sectionTeleport = pageMain:NewSection("Teleport")
+
+local pageCredits = MainUI:NewTab("Credits")
+local sectionCredits = pageMain:NewSection("Credits")
+ 
+
+local ranks = {}
+for i, v in pairs(game:GetService("Workspace").areaTeleportParts:GetChildren()) do
+    table.insert(teleports, tostring(v))
+end
+
+
+sectionFarm:NewToggle("Auto Swing", "self explanatory lol", function(a)
+    aa = a
+    while aa do task.wait()
+        local ohString1 = "swingKatana"
+        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1)
+    end
+end)
+
+
+sectionFarm:NewToggle("Auto Sell", "self explanatory lol", function(b)
+    bb = b
+    while bb do task.wait(2)
+        game:GetService("Workspace").sellAreaCircles.sellAreaCircle16.circleInner.CFrame = CFrame.new(50,50,50)
+        game:GetService("Workspace").sellAreaCircles.sellAreaCircle16.circleInner.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+    end
+end)
+
+
+sectionFarm:NewToggle("Auto Buy Swords", "self explanatory lol", function(c)
+    cc = c
+    while cc do task.wait()
+        local ohString1 = "buyAllSwords"
+        local ohString2 = "Blazing Vortex Island"
+
+        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+    end
+end)
+
+sectionFarm:NewToggle("Auto Buy Belts", "self explanatory lol", function(d)
+    dd = d
+    while dd do task.wait()
+        local ohString1 = "buyAllBelts"
+        local ohString2 = "Blazing Vortex Island"
+
+        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+     end
+end)
+
+sectionFarm:NewToggle("Auto Buy Belts", "self explanatory lol", function(e)
+    ee = e
+    while ee do task.wait()
+        for i = 1,#ranks do 
+            local ohString1 = "buyRank"
+            local ohString2 = ranks[i]
+            
+            game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+        end
+    end
+end)
+
+sectionFarm:NewToggle("Auto Buy Skills", "self explanatory lol", function(f)
+    ff = f
+    while ff do task.wait()
+        local ohString1 = "buyAllSkills"
+        local ohString2 = "Blazing Vortex Island"
+    
+        game:GetService("Players").LocalPlayer.ninjaEvent:FireServer(ohString1, ohString2)
+    end
+end)
+
+sectionFarm:NewToggle("Auto Hoops", "self explanatory lol", function(g)
+    gg = g
+    while gg do task.wait()
+        for i,v in pairs(game:GetService("Workspace").Hoops:GetChildren()) do
+            v.touchPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+            wait(0.02)
+        end
+    end
+end)
+
+sectionFarm:NewButton("Auto Chest", "self explanatory lol", function()
+    for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+        if string.match(v.Name,"Chest") and v:IsA("Model") then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.circleOuter.Position)
+            game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            wait(0.5)
+        end 
+    end
+end)
+
+sectionTeleport:NewButton("Discover all Islands", "self explanatory lol", function()
+    for i = 1,#teleports do 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").areaTeleportParts[teleports[i]].Position)
+        wait()
+    end
+end)
+
+sectionTeleport:NewTextBox("Player Name", "self explanatory lol", function(value)
+    kVars.teleportToPlayer = value
+    print(value)
+end)
+
+sectionTeleport:NewButton("Teleport", "self explanatory lol", function()
+    if game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart') ~= nil then
+        for i, v in pairs(game:GetService('Players'):GetChildren()) do
+            local hrp = game:GetService('Players').LocalPlayer.Character:WaitForChild('HumanoidRootPart')
+            if string.find(string.lower(v.DisplayName), string.lower(kVars.teleportToPlayer)) then
+                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+            elseif string.find(string.lower(v.Name), string.lower(kVars.teleportToPlayer)) then
+                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
+            end
+        end
+    end
+end)
+
+sectionCredits:NewLabel("Scripter | LxstBruno Bucciarati#0715")
+sectionCredits:NewLabel("UI Library | Kavo UI Library")
+sectionCredits:NewLabel("UI Library Creator | xHeptc")
